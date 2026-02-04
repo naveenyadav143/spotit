@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -7,7 +8,11 @@ SECRET_KEY = 'django-insecure-81ptsm8m5r!+q7g!jzwt-q7n*#pq2rd&w754&95b*6*#4km#e-
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['spotit.onrender.com']
+ALLOWED_HOSTS = [
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -70,11 +75,11 @@ WSGI_APPLICATION = 'lostfound.wsgi.application'
 # DATABASE
 # ---------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
+    )
 }
+
 
 # ---------------------------
 # PASSWORD VALIDATION
